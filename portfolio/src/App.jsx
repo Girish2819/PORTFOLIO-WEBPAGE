@@ -1,6 +1,6 @@
 import React from "react";
 import Background from "./components/Background";
-import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Experience from "./components/Experience";
@@ -13,18 +13,49 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="font-sans bg-slate-900 text-white relative overflow-x-hidden">
+    <div className="font-sans bg-gray-900 text-white relative overflow-x-hidden">
+      {/* Single background for entire app */}
       <Background />
-      <Header />
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Achievements />
-      <Education />
-      <Contact />
-      <Footer />
+      
+      {/* Navbar */}
+      <Navbar />
+      
+      {/* All sections with proper z-index */}
+      <div className="relative z-10">
+        <Hero />
+      </div>
+      
+      <div className="relative z-10">
+        <About />
+      </div>
+      
+      <div className="relative z-10">
+        <Experience />
+      </div>
+      
+      <div className="relative z-10">
+        <Projects />
+      </div>
+      
+      <div className="relative z-10">
+        <Skills />
+      </div>
+      
+      <div className="relative z-10">
+        <Achievements />
+      </div>
+      
+      <div className="relative z-10">
+        <Education />
+      </div>
+      
+      <div className="relative z-10">
+        <Contact />
+      </div>
+      
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 }

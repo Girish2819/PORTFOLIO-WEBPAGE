@@ -23,11 +23,11 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-20 px-6 max-w-5xl mx-auto">
+    <section id="experience" className="py-20 px-6 max-w-5xl mx-auto relative z-20">
       <h2 className="text-4xl font-bold mb-12 text-center text-purple-400">Experience</h2>
       <div className="space-y-6">
         {experiences.map((exp, i) => (
-          <div key={i} className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-purple-500/30">
+          <div key={i} className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-lg p-6 rounded-xl border-2 border-purple-500/50 shadow-lg shadow-purple-500/20">
             <div className="flex justify-between mb-2">
               <h3 className="text-xl font-bold text-purple-300">{exp.title}</h3>
               <span className="text-gray-400">{exp.date}</span>
