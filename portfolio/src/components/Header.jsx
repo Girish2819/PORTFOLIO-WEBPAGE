@@ -49,7 +49,7 @@ const Header = () => {
               {/* Resume Button */}
               <button
                 onClick={handleResumeClick}
-                className="ml-12 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-10 py-4 rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-4 border-2 border-black hover:border-white/50"
+                className="ml-12 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-bold px-10 py-4 rounded-xl transition-all duration-300 hover:scale-105 flex items-center gap-4 border-2 border-black hover:border-white/50"
               >
                 <FileText className="w-6 h-6" />
                 <span className="uppercase tracking-widest text-lg">Resume</span>

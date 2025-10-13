@@ -204,47 +204,25 @@ const Skills = () => {
   }, [skills.length, containerSize]);
 
   return (
-    <section id="skills" className="section-padding bg-gradient-to-br from-gray-950 via-purple-950 to-gray-900 backdrop-blur-sm relative z-30">
-      {/* Background Effects */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 right-10 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-10 w-80 h-80 bg-cyan-600 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      </div>
-
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: '4s',
-            }}
-          />
-        ))}
-      </div>
-
+    <section id="skills" className="section-padding relative z-30">
       <div className="container-max relative z-10">
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16 px-4">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-white">
+        <div className="text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16 px-2 xs:px-4">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 xs:mb-4 sm:mb-6 text-white">
             My Skills
           </h2>
-          <div className="w-16 sm:w-20 lg:w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mb-4 sm:mb-6"></div>
+          <div className="w-12 xs:w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto rounded-full mb-3 xs:mb-4 sm:mb-6"></div>
         </div>
 
         {/* Animated Skills Container */}
         <div
           ref={containerRef}
-          className="relative mx-auto border border-gray-800/50 rounded-full overflow-hidden bg-gray-900/20 backdrop-blur-sm w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px] lg:w-[600px] lg:h-[600px] xl:w-[700px] xl:h-[700px]"
+          className="relative mx-auto border border-gray-800/50 rounded-full overflow-hidden bg-gray-900/20 backdrop-blur-sm w-[250px] h-[250px] xs:w-[300px] xs:h-[300px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] xl:w-[650px] xl:h-[650px] 2xl:w-[750px] 2xl:h-[750px]"
           style={{ aspectRatio: '1/1' }}
         >
           {skills.map((skill) => (
             <div key={skill.id} className="relative group">
               <motion.div
-                className="absolute flex items-center justify-center text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-white shadow-lg cursor-pointer hover:scale-110 transition-transform duration-200"
+                className="absolute flex items-center justify-center text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-white shadow-lg cursor-pointer hover:scale-110 transition-transform duration-200"
                 style={{
                   width: skill.radius * 2,
                   height: skill.radius * 2,
@@ -274,7 +252,7 @@ const Skills = () => {
                 <img 
                   src={skill.iconUrl} 
                   alt={skill.name}
-                  className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 drop-shadow-lg"
+                  className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-9 xl:h-9 2xl:w-10 2xl:h-10 drop-shadow-lg"
                   style={{ filter: 'brightness(0) invert(1)' }}
                 />
               </motion.div>

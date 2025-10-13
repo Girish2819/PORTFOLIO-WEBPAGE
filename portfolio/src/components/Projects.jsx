@@ -116,36 +116,14 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="section-padding bg-gradient-to-br from-gray-950 via-purple-950 to-gray-900 backdrop-blur-sm relative z-30">
-      {/* Background Effects */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 right-10 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-10 w-80 h-80 bg-cyan-600 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      </div>
-
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: '4s',
-            }}
-          />
-        ))}
-      </div>
-
+    <section id="projects" className="section-padding relative z-30">
       <div className="container-max relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold mb-6">
-            <span className="gradient-text">Featured Projects</span>
+        <div className="text-center mb-8 xs:mb-12 sm:mb-16 px-2 xs:px-4">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 xs:mb-4 sm:mb-6 text-white">
+            Featured Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mb-6"></div>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <div className="w-16 xs:w-20 sm:w-24 md:w-28 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto rounded-full mb-3 xs:mb-4 sm:mb-6"></div>
+          <p className="text-gray-300 text-sm xs:text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
             A showcase of my recent work and creative solutions
           </p>
         </div>
@@ -160,10 +138,10 @@ const Projects = () => {
                 animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
               }}
             >
-              <div className="w-full max-w-4xl">
+              <div className="w-full max-w-xs xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-4xl">
                 <div className="glass-effect rounded-2xl overflow-hidden card-hover group">
                   {/* Project Content */}
-                  <div className="p-6 lg:p-8">
+                  <div className="p-3 xs:p-4 sm:p-6 md:p-8">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-4">
                         {/* Project Icon */}
@@ -174,7 +152,7 @@ const Projects = () => {
                           {project.icon}
                         </div>
                         <div>
-                          <h3 className="text-xl lg:text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300 mb-1">
+                          <h3 className="text-lg xs:text-xl sm:text-xl md:text-2xl font-bold text-white group-hover:text-white transition-colors duration-300 mb-1">
                             {project.title}
                           </h3>
                           <div className="flex items-center gap-2 text-purple-300 font-semibold text-xs">
@@ -203,7 +181,7 @@ const Projects = () => {
                       </div>
                     </div>
 
-                    <p className="text-gray-300 leading-relaxed mb-4 text-sm lg:text-base">
+                    <p className="text-gray-300 leading-relaxed mb-4 text-xs xs:text-sm sm:text-sm md:text-base">
                       {project.description}
                     </p>
 

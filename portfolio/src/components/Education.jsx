@@ -36,35 +36,13 @@ const Education = () => {
   ];
 
   return (
-    <section id="education" className="section-padding bg-gradient-to-br from-gray-950 via-purple-950 to-gray-900 backdrop-blur-sm relative z-30">
-      {/* Background Effects */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-cyan-600 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      </div>
-
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: '4s',
-            }}
-          />
-        ))}
-      </div>
-
+    <section id="education" className="section-padding relative z-30">
       <div className="container-max relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold mb-6">
-            <span className="gradient-text">Education</span>
+          <h2 className="text-5xl font-bold mb-6 text-white">
+            Education
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mb-6"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto rounded-full mb-6"></div>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             My academic journey and educational background
           </p>
@@ -90,7 +68,7 @@ const Education = () => {
               {/* Content */}
               <div className="p-6 space-y-4">
                 <div>
-                  <h4 className="text-lg font-bold text-purple-300 group-hover:text-cyan-400 transition-colors mb-2">
+                  <h4 className="text-lg font-bold text-white group-hover:text-white transition-colors mb-2">
                     {edu.degree}
                   </h4>
                   <p className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">

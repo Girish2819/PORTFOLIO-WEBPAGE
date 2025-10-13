@@ -82,42 +82,19 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-purple-950 to-gray-900 text-white overflow-hidden pt-20 z-30"
+      className="relative min-h-screen flex items-center justify-center text-white overflow-hidden pt-20 z-30"
     >
-      {/* Animated background gradient orb */}
-      <div
-        className="absolute inset-0 opacity-40 pointer-events-none transition-all duration-300"
-        style={{
-          background: `radial-gradient(circle 600px at ${mousePosition.x}% ${mousePosition.y}%, rgba(168, 85, 247, 0.3), transparent 70%)`,
-        }}
-      />
 
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: '4s',
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 flex flex-col lg:flex-row gap-8 sm:gap-16 lg:gap-40 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 md:py-12 flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-24 2xl:gap-40 items-center relative z-10">
         {/* Left side - Profile Picture */}
         <div className="flex justify-center flex-shrink-0 lg:order-1 w-full lg:w-auto">
           <div className="relative group">
             {/* Multiple glowing rings */}
-            <div className="absolute -inset-6 bg-gradient-to-r from-purple-600 via-pink-600 to-cyan-600 rounded-full opacity-60 blur-2xl group-hover:opacity-80 transition-opacity duration-500 animate-pulse" />
-            <div className="absolute -inset-4 bg-gradient-to-r from-cyan-600 via-purple-600 to-pink-600 rounded-full opacity-40 blur-xl group-hover:opacity-60 transition-opacity duration-500" />
+            <div className="absolute -inset-6 bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-500 rounded-full opacity-60 blur-2xl group-hover:opacity-80 transition-opacity duration-500 animate-pulse" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-cyan-600 via-blue-600 to-cyan-500 rounded-full opacity-40 blur-xl group-hover:opacity-60 transition-opacity duration-500" />
 
             {/* Main image container */}
-            <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-60 md:h-60 lg:w-64 lg:h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden border-4 border-gradient-to-r from-purple-400 to-cyan-400 shadow-2xl shadow-purple-500/50 group-hover:shadow-cyan-500/50 transition-all duration-500">
+            <div className="relative w-40 h-40 xs:w-44 xs:h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 lg:w-56 lg:h-56 xl:w-60 xl:h-60 2xl:w-72 2xl:h-72 rounded-full overflow-hidden border-4 border-gradient-to-r from-blue-400 to-cyan-400 shadow-2xl shadow-blue-500/50 group-hover:shadow-cyan-500/50 transition-all duration-500">
               <img
                 src={profilePic}
                 alt="Girish Ranjan"
@@ -126,13 +103,13 @@ const Hero = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 via-transparent to-cyan-400/20 pointer-events-none" />
               
               {/* Floating elements around image */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-purple-500 rounded-full animate-bounce opacity-70" style={{ animationDelay: '0.5s' }} />
+              <div className="absolute -top-4 -right-4 w-8 h-8 bg-blue-500 rounded-full animate-bounce opacity-70" style={{ animationDelay: '0.5s' }} />
               <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-cyan-500 rounded-full animate-bounce opacity-70" style={{ animationDelay: '1s' }} />
-              <div className="absolute top-1/2 -right-8 w-4 h-4 bg-pink-500 rounded-full animate-bounce opacity-70" style={{ animationDelay: '1.5s' }} />
+              <div className="absolute top-1/2 -right-8 w-4 h-4 bg-blue-400 rounded-full animate-bounce opacity-70" style={{ animationDelay: '1.5s' }} />
             </div>
 
             {/* Rotating decorative rings */}
-            <div className="absolute inset-0 rounded-full border-2 border-purple-400/30 animate-spin" style={{ animationDuration: '15s' }} />
+            <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 animate-spin" style={{ animationDuration: '15s' }} />
             <div className="absolute inset-2 rounded-full border border-cyan-400/20 animate-spin" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
           </div>
         </div>
@@ -145,19 +122,19 @@ const Hero = () => {
             }`}>
               {displayedHello}
             </p>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
+            <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-bold leading-tight">
               <span className={`text-white transition-all duration-1000 delay-300 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 {displayedName}
               </span>
             </h1>
-            <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-purple-300 font-semibold">
+            <div className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white font-semibold">
               <span className={`transition-all duration-1000 delay-600 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}>
                 And I'm a{' '}
-                <span className="text-cyan-400 inline-block min-w-[200px] sm:min-w-[250px] md:min-w-[300px]">
+                <span className="text-white inline-block min-w-[200px] sm:min-w-[250px] md:min-w-[300px]">
                   <span 
                     key={currentText}
                     className="animate-fade-in font-bold"
@@ -175,7 +152,7 @@ const Hero = () => {
             </div>
           </div>
 
-          <p className={`text-gray-300 text-base sm:text-lg md:text-xl leading-relaxed transition-all duration-1000 delay-900 ${
+          <p className={`text-gray-300 text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed transition-all duration-1000 delay-900 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             🚀 Passionate Computer Science undergraduate skilled in full-stack development, backend optimization, and problem-solving. 
@@ -183,14 +160,14 @@ const Hero = () => {
           </p>
 
           {/* Action Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-6 transition-all duration-1000 delay-1200 ${
+          <div className={`flex flex-col xs:flex-row gap-4 sm:gap-6 transition-all duration-1000 delay-1200 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             <button
               onClick={scrollToExperience}
-              className="group bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 sm:gap-3 shadow-2xl hover:shadow-purple-500/25 border border-white/20 text-sm sm:text-base md:text-lg"
+              className="group bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-bold px-4 xs:px-6 sm:px-8 md:px-10 py-2 xs:py-3 sm:py-4 rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 sm:gap-3 shadow-2xl hover:shadow-blue-500/25 border border-white/20 text-xs xs:text-sm sm:text-base md:text-lg"
             >
-              <span className="text-sm sm:text-base md:text-lg">Explore My Work</span>
+              <span className="text-xs xs:text-sm sm:text-base md:text-lg">Explore My Work</span>
               <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
             </button>
              

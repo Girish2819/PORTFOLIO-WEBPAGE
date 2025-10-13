@@ -42,43 +42,21 @@ const Contact = () => {
     }
   };
   return (
-    <section id="contact" className="section-padding bg-gradient-to-br from-gray-950 via-purple-950 to-gray-900 backdrop-blur-sm relative z-30">
-      {/* Background Effects */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-cyan-600 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      </div>
-
-      {/* Floating particles effect */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full animate-pulse"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: '4s',
-            }}
-          />
-        ))}
-      </div>
-
+    <section id="contact" className="section-padding relative z-30">
       <div className="container-max relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold mb-6 text-white">
+        <div className="text-center mb-8 xs:mb-12 sm:mb-16 px-2 xs:px-4">
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 xs:mb-4 sm:mb-6 text-white">
             Connect with me
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mb-6"></div>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          <div className="w-16 xs:w-20 sm:w-24 md:w-28 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto rounded-full mb-3 xs:mb-4 sm:mb-6"></div>
+          <p className="text-gray-300 text-sm xs:text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
             Feel free to reach out for collaborations or just a friendly chat
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-8 sm:gap-10 md:gap-12">
           {/* Contact Form */}
-          <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-purple-500/30">
+          <div className="bg-slate-800/50 backdrop-blur-sm p-4 xs:p-6 sm:p-8 rounded-2xl border border-purple-500/30">
             <h3 className="text-2xl font-bold text-white mb-6">Send me a message</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -92,7 +70,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                   placeholder="Your name"
                 />
               </div>
@@ -108,7 +86,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -131,7 +109,7 @@ const Contact = () => {
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
               >
                 <Send size={20} />
                 Send Message
@@ -141,7 +119,7 @@ const Contact = () => {
 
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-purple-500/30">
+            <div className="bg-slate-800/50 backdrop-blur-sm p-4 xs:p-6 sm:p-8 rounded-2xl border border-purple-500/30">
               <h3 className="text-2xl font-bold text-white mb-6">Get in touch</h3>
               
               <div className="space-y-4">
@@ -172,7 +150,7 @@ const Contact = () => {
             </div>
 
             {/* Social Links */}
-            <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-purple-500/30">
+            <div className="bg-slate-800/50 backdrop-blur-sm p-4 xs:p-6 sm:p-8 rounded-2xl border border-purple-500/30">
               <h3 className="text-2xl font-bold text-white mb-6">Follow me</h3>
               <div className="flex gap-4">
                 <a href="https://github.com/Girish2819" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-300 hover:text-white transition-all duration-300 hover:scale-110 bg-white/5 p-4 rounded-lg border border-gray-500/30 hover:border-gray-400/60">

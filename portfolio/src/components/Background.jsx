@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 
 const Background = () => {
   const canvasRef = useRef();
+  const animationRef = useRef();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -12,77 +13,111 @@ const Background = () => {
     const particles = [];
     const particleCount = 150;
 
-    // Create particles with different types
+    // Create white particles with consistent smooth movement
     for (let i = 0; i < particleCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 0.3 + 0.2; // Consistent speed range
+      
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        radius: Math.random() * 2 + 0.5,
-        dx: (Math.random() - 0.5) * 0.5,
-        dy: (Math.random() - 0.5) * 0.5,
-        opacity: Math.random() * 0.8 + 0.2,
-        color: Math.random() > 0.7 ? '#a855f7' : Math.random() > 0.4 ? '#06b6d4' : '#ffffff',
-        type: Math.random() > 0.8 ? 'glow' : 'normal'
+        radius: Math.random() * 1.2 + 0.8,
+        vx: Math.cos(angle) * speed, // Consistent velocity based on angle
+        vy: Math.sin(angle) * speed,
+        opacity: Math.random() * 0.4 + 0.4,
+        pulseSpeed: Math.random() * 0.015 + 0.005,
+        pulsePhase: Math.random() * Math.PI * 2,
+        originalRadius: Math.random() * 1.2 + 0.8,
+        trail: [], // For smooth trail effect
+        baseSpeed: speed, // Store original speed for consistency
+        angle: angle // Store original angle for smooth rotation
       });
     }
 
-    // Animation loop
+    // Ultra-smooth animation loop
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
       
-      // Create gradient background
-      const gradient = ctx.createRadialGradient(width/2, height/2, 0, width/2, height/2, Math.max(width, height));
-      gradient.addColorStop(0, 'rgba(15, 23, 42, 0.8)');
-      gradient.addColorStop(0.5, 'rgba(30, 41, 59, 0.6)');
-      gradient.addColorStop(1, 'rgba(15, 23, 42, 0.9)');
+      // Create deep blue to black gradient background
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, '#0a0e27'); // Deep blue
+      gradient.addColorStop(0.3, '#1a1f3a'); // Darker blue
+      gradient.addColorStop(0.7, '#0d1117'); // Very dark blue-black
+      gradient.addColorStop(1, '#000000'); // Pure black
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
 
+      // Add radial gradient overlay for depth
+      const radialGradient = ctx.createRadialGradient(width/2, height/2, 0, width/2, height/2, Math.max(width, height));
+      radialGradient.addColorStop(0, 'rgba(10, 14, 39, 0.3)');
+      radialGradient.addColorStop(0.5, 'rgba(13, 17, 23, 0.6)');
+      radialGradient.addColorStop(1, 'rgba(0, 0, 0, 0.8)');
+      ctx.fillStyle = radialGradient;
+      ctx.fillRect(0, 0, width, height);
+
       particles.forEach((particle) => {
+        // Store previous position for trail
+        particle.trail.push({ x: particle.x, y: particle.y });
+        if (particle.trail.length > 3) {
+          particle.trail.shift();
+        }
+
+        // Smooth pulsing effect
+        particle.pulsePhase += particle.pulseSpeed;
+        particle.radius = particle.originalRadius + Math.sin(particle.pulsePhase) * 0.15;
+
+        // Draw trail for smoother motion
+        particle.trail.forEach((point, index) => {
+          const trailOpacity = (index / particle.trail.length) * particle.opacity * 0.2;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, particle.radius * 0.6, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${trailOpacity})`;
+          ctx.fill();
+        });
+
+        // Draw main particle
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
         
-        if (particle.type === 'glow') {
-          ctx.fillStyle = particle.color;
-          ctx.shadowBlur = 15;
-          ctx.shadowColor = particle.color;
-        } else {
-          ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = '#ffffff';
-        }
-        
+        // White particles with subtle glow
+        ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = 'rgba(255, 255, 255, 0.5)';
         ctx.fill();
 
-        particle.x += particle.dx;
-        particle.y += particle.dy;
+        // Reset shadow
+        ctx.shadowBlur = 0;
 
-        // Wrap around edges
-        if (particle.x > width) particle.x = 0;
-        if (particle.x < 0) particle.x = width;
-        if (particle.y > height) particle.y = 0;
-        if (particle.y < 0) particle.y = height;
+        // Continuous smooth movement - NO random changes
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Smooth edge wrapping
+        if (particle.x > width + 20) particle.x = -20;
+        if (particle.x < -20) particle.x = width + 20;
+        if (particle.y > height + 20) particle.y = -20;
+        if (particle.y < -20) particle.y = height + 20;
       });
 
-      // Draw connecting lines between nearby particles
+      // Draw very subtle connecting lines
       particles.forEach((particle, i) => {
         particles.slice(i + 1).forEach((otherParticle) => {
           const dx = particle.x - otherParticle.x;
           const dy = particle.y - otherParticle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 100) {
+          if (distance < 80) {
             ctx.beginPath();
             ctx.moveTo(particle.x, particle.y);
             ctx.lineTo(otherParticle.x, otherParticle.y);
-            ctx.strokeStyle = `rgba(168, 85, 247, ${0.1 - distance / 1000})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.02 - distance / 4000})`;
+            ctx.lineWidth = 0.15;
             ctx.stroke();
           }
         });
       });
 
-      requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame(animate);
     };
 
     animate();
@@ -94,7 +129,13 @@ const Background = () => {
     };
     window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
+    // Cleanup function
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
   }, []);
 
   return (
@@ -102,10 +143,11 @@ const Background = () => {
       <canvas
         ref={canvasRef}
         className="w-full h-full"
+        style={{ 
+          background: 'transparent',
+          willChange: 'transform' // Optimize for smooth animation
+        }}
       />
-      {/* Additional gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900" />
-      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-gray-900/30" />
     </div>
   );
 };

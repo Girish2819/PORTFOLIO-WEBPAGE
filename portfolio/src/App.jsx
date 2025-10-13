@@ -12,7 +12,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <div className="font-sans bg-gray-900 text-white relative overflow-x-hidden">
+    <div className="font-sans text-white relative overflow-x-hidden min-h-screen">
       {/* Single background for entire app */}
       <Background />
       
