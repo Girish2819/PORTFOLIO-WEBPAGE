@@ -9,6 +9,7 @@
     "server:start": "cd server && npm start",
     "client:dev": "cd portfolio && npm run dev",
     "client:build": "cd portfolio && npm run build",
+    "build": "npm run client:build",
     "client:preview": "cd portfolio && npm run preview",
     "install:all": "npm install && cd server && npm install && cd ../portfolio && npm install"
   },
