@@ -25,6 +25,10 @@ function App() {
       </div>
       
       <div className="relative z-10">
+        <Skills />
+      </div>
+      
+      <div className="relative z-10">
         <Experience />
       </div>
       
@@ -33,15 +37,11 @@ function App() {
       </div>
       
       <div className="relative z-10">
-        <Skills />
+        <Education />
       </div>
       
       <div className="relative z-10">
         <Achievements />
-      </div>
-      
-      <div className="relative z-10">
-        <Education />
       </div>
       
       <div className="relative z-10">
