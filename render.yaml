@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: portfolio-fullstack
+    env: node
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: MONGO_URI
+        fromSecret: MONGO_URI
+      - key: EMAIL_USER
+        fromSecret: EMAIL_USER
+      - key: EMAIL_PASS
+        fromSecret: EMAIL_PASS
