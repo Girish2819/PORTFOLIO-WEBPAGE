@@ -1,5 +1,8 @@
 import React from "react";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
+import rgiptImage from "../assets/rgipt.jpeg";
+import stXavierImage from "../assets/st.xavier.jpeg";
+import sunShineImage from "../assets/sun-shine.jpeg";
 
 const Education = () => {
   const education = [
@@ -7,34 +10,56 @@ const Education = () => {
       degree: "B.Tech in Computer Science",
       institution: "RGIPT",
       fullName: "Rajiv Gandhi Institute of Petroleum Technology",
-      location: "Amethi, UP",
+      location: "Amethi, Uttar Pradesh",
       period: "2023 - 2027",
-      image: "https://images.unsplash.com/photo-1562774053-701939374585?w=400&h=300&fit=crop",
-      type: "University"
+      image: rgiptImage,
+      type: "College"
     },
     {
       degree: "12th Grade (Science)",
-      institution: "ABC School",
-      fullName: "ABC Senior Secondary School",
-      location: "City, State",
-      period: "2021 - 2023",
-      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=300&fit=crop",
+      institution: "Sun Shine Residential Public School",
+      fullName: "Sun Shine Residential Public School",
+      location: "Patna, Bihar",
+      period: "2020 - 2022",
+      image: sunShineImage,
       type: "School"
     },
     {
-      degree: "10th Grade",
-      institution: "XYZ School",
-      fullName: "XYZ High School",
-      location: "City, State",
-      period: "2020 - 2021",
-      image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400&h=300&fit=crop",
+      degree: "10th",
+      institution: "St.xaviers Heigher Secondary School",
+      fullName: "St.xaviers Heigher Secondary School",
+      location: "Patna, Bihar",  
+      period: "2019 - 2020",
+      image: stXavierImage,
       type: "School"
     }
   ];
 
   return (
-    <section id="education" className="section-padding bg-gray-800/60 backdrop-blur-sm relative z-30">
-      <div className="container-max">
+    <section id="education" className="section-padding bg-gradient-to-br from-gray-950 via-purple-950 to-gray-900 backdrop-blur-sm relative z-30">
+      {/* Background Effects */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-cyan-600 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      </div>
+
+      {/* Floating particles effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-purple-400 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: '4s',
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container-max relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold mb-6">
             <span className="gradient-text">Education</span>
@@ -60,18 +85,6 @@ const Education = () => {
                 />
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent"></div>
-                
-                {/* Institution name on image */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center px-4">
-                    <div className="inline-block px-6 py-2 bg-gray-900/80 backdrop-blur-md rounded-full border border-purple-500/30 group-hover:border-cyan-400/50 transition-colors duration-300">
-                      <GraduationCap className="w-8 h-8 text-purple-400 group-hover:text-cyan-400 transition-colors mx-auto mb-2" />
-                      <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
-                        {edu.institution}
-                      </h3>
-                    </div>
-                  </div>
-                </div>
               </div>
 
               {/* Content */}

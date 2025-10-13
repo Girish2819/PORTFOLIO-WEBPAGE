@@ -2,7 +2,6 @@ import React from "react";
 import Background from "./components/Background";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import About from "./components/About";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
@@ -23,10 +22,6 @@ function App() {
       {/* All sections with proper z-index */}
       <div className="relative z-10">
         <Hero />
-      </div>
-      
-      <div className="relative z-10">
-        <About />
       </div>
       
       <div className="relative z-10">

@@ -17,14 +17,14 @@ const Footer = () => {
     { 
       icon: Linkedin, 
       label: "LinkedIn", 
-      href: "https://linkedin.com/in/girishranjan17", 
+      href: "https://www.linkedin.com/in/girish-ranjan-b00717288", 
       color: "hover:text-blue-400",
       bgColor: "hover:bg-blue-600/50"
     },
     { 
       icon: Mail, 
       label: "Email", 
-      href: "mailto:girishranjan71@gmail.com", 
+      href: "https://mail.google.com/mail/?view=cm&fs=1&to=girishranjan71@gmail.com", 
       color: "hover:text-red-400",
       bgColor: "hover:bg-red-600/50"
     }
@@ -50,14 +50,14 @@ const Footer = () => {
         {/* Main Footer Content */}
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand Section */}
-          <div className="text-center md:text-left">
+          <div className="text-center">
             <h3 className="text-3xl font-bold mb-4">
               <span className="gradient-text">Girish Ranjan</span>
             </h3>
             <p className="text-gray-300 mb-6 leading-relaxed">
               Full Stack Developer passionate about creating innovative solutions and bringing ideas to life through code.
             </p>
-            <div className="flex justify-center md:justify-start gap-4">
+            <div className="flex justify-center gap-4">
               {socialLinks.map((social, index) => (
                 <a
                   key={index}
@@ -74,7 +74,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="text-center md:text-left">
+          <div className="text-center">
             <h4 className="text-xl font-semibold text-white mb-6">Quick Links</h4>
             <div className="space-y-3">
               {quickLinks.map((link, index) => (
@@ -90,7 +90,7 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div className="text-center md:text-left">
+          <div className="text-center">
             <h4 className="text-xl font-semibold text-white mb-6">Get In Touch</h4>
             <div className="space-y-3">
               <a 
@@ -115,7 +115,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="border-t border-purple-500/20 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col items-center gap-6">
             <p className="text-gray-500 text-sm flex items-center gap-2">
               © 2024 Girish Ranjan. Made with 
               <Heart className="w-4 h-4 text-pink-500 animate-pulse" /> 

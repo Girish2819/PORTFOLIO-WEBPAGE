@@ -1,34 +1,191 @@
-import React from "react";
-import { Mail, Phone, Github, Linkedin } from "lucide-react";
+import React, { useState } from "react";
+import { Mail, Phone, Github, Linkedin, Send } from "lucide-react";
 
 const Contact = () => {
-  return (
-    <section id="contact" className="py-20 px-6 max-w-5xl mx-auto relative z-20">
-      <div className="bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-lg p-12 rounded-xl border-2 border-purple-500/50 text-center shadow-2xl shadow-purple-500/20">
-        <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-          Let's Work Together
-        </h2>
-        <p className="text-gray-200 mb-8 text-xl">Feel free to reach out for collaborations or just a friendly chat</p>
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
 
-        <div className="flex flex-wrap gap-8 justify-center mb-8">
-          <a href="mailto:girishranjan71@gmail.com" className="flex items-center gap-3 text-purple-300 hover:text-purple-200 transition-all duration-300 hover:scale-105 bg-white/5 px-6 py-3 rounded-full border border-purple-500/30 hover:border-purple-400/60">
-            <Mail size={24} /> girishranjan71@gmail.com
-          </a>
-          <a href="mailto:23cs3025@rgipt.ac.in" className="flex items-center gap-3 text-purple-300 hover:text-purple-200 transition-all duration-300 hover:scale-105 bg-white/5 px-6 py-3 rounded-full border border-purple-500/30 hover:border-purple-400/60">
-            <Mail size={24} /> 23cs3025@rgipt.ac.in
-          </a>
-          <a href="tel:+918114548249" className="flex items-center gap-3 text-purple-300 hover:text-purple-200 transition-all duration-300 hover:scale-105 bg-white/5 px-6 py-3 rounded-full border border-purple-500/30 hover:border-purple-400/60">
-            <Phone size={24} /> +91-8114548249
-          </a>
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Reset form
+        setFormData({ name: '', email: '', message: '' });
+        alert('Message sent successfully! I\'ll get back to you soon.');
+      } else {
+        alert('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Failed to send message. Please check your connection and try again.');
+    }
+  };
+  return (
+    <section id="contact" className="section-padding bg-gradient-to-br from-gray-950 via-purple-950 to-gray-900 backdrop-blur-sm relative z-30">
+      {/* Background Effects */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-purple-600 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-cyan-600 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+      </div>
+
+      {/* Floating particles effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-purple-400 rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              animationDuration: '4s',
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container-max relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl font-bold mb-6 text-white">
+            Connect with me
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mb-6"></div>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            Feel free to reach out for collaborations or just a friendly chat
+          </p>
         </div>
 
-        <div className="flex gap-8 justify-center">
-          <a href="https://github.com/Girish2819" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-110 bg-white/5 p-4 rounded-full border border-gray-500/30 hover:border-gray-400/60">
-            <Github size={32} />
-          </a>
-          <a href="https://linkedin.com/in/girishranjan17" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-white transition-all duration-300 hover:scale-110 bg-white/5 p-4 rounded-full border border-blue-500/30 hover:border-blue-400/60">
-            <Linkedin size={32} />
-          </a>
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-purple-500/30">
+            <h3 className="text-2xl font-bold text-white mb-6">Send me a message</h3>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                  placeholder="Your name"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors resize-none"
+                  placeholder="Your message here..."
+                />
+              </div>
+              
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+              >
+                <Send size={20} />
+                Send Message
+              </button>
+            </form>
+          </div>
+
+          {/* Contact Information */}
+          <div className="space-y-8">
+            <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-purple-500/30">
+              <h3 className="text-2xl font-bold text-white mb-6">Get in touch</h3>
+              
+              <div className="space-y-4">
+                <a href="mailto:girishranjan71@gmail.com" className="flex items-center gap-3 text-purple-300 hover:text-purple-200 transition-all duration-300 hover:scale-105 bg-white/5 px-4 py-3 rounded-lg border border-purple-500/30 hover:border-purple-400/60">
+                  <Mail size={20} />
+                  <div>
+                    <div className="font-medium">Personal Email</div>
+                    <div className="text-sm text-gray-400">girishranjan71@gmail.com</div>
+                  </div>
+                </a>
+                
+                <a href="mailto:23cs3025@rgipt.ac.in" className="flex items-center gap-3 text-purple-300 hover:text-purple-200 transition-all duration-300 hover:scale-105 bg-white/5 px-4 py-3 rounded-lg border border-purple-500/30 hover:border-purple-400/60">
+                  <Mail size={20} />
+                  <div>
+                    <div className="font-medium">Academic Email</div>
+                    <div className="text-sm text-gray-400">23cs3025@rgipt.ac.in</div>
+                  </div>
+                </a>
+                
+                <a href="tel:+918114548249" className="flex items-center gap-3 text-purple-300 hover:text-purple-200 transition-all duration-300 hover:scale-105 bg-white/5 px-4 py-3 rounded-lg border border-purple-500/30 hover:border-purple-400/60">
+                  <Phone size={20} />
+                  <div>
+                    <div className="font-medium">Phone</div>
+                    <div className="text-sm text-gray-400">+91-8114548249</div>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-purple-500/30">
+              <h3 className="text-2xl font-bold text-white mb-6">Follow me</h3>
+              <div className="flex gap-4">
+                <a href="https://github.com/Girish2819" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-300 hover:text-white transition-all duration-300 hover:scale-110 bg-white/5 p-4 rounded-lg border border-gray-500/30 hover:border-gray-400/60">
+                  <Github size={24} />
+                  <span className="font-medium">GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/girish-ranjan-b00717288" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:text-white transition-all duration-300 hover:scale-110 bg-white/5 p-4 rounded-lg border border-blue-500/30 hover:border-blue-400/60">
+                  <Linkedin size={24} />
+                  <span className="font-medium">LinkedIn</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
