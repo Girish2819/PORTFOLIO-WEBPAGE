@@ -26,8 +26,8 @@ mongoose
 // Serve frontend build
 app.use(express.static(path.join(__dirname, '../portfolio/dist')));
 
-// Catch-all route
-app.get('(.*)', (req, res) => {
+// Catch-all route for SPA
+app.get('(/*)', (req, res) => {
   res.sendFile(path.join(__dirname, '../portfolio/dist/index.html'));
 });
 
