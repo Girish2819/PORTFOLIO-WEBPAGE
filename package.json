@@ -3,16 +3,14 @@
   "version": "1.0.0",
   "description": "Full-stack portfolio application",
   "scripts": {
-    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
-    "start": "concurrently \"npm run server:start\" \"npm run client:build\"",
-    "server:dev": "cd server && npm run dev",
-    "server:start": "cd server && npm start",
-    "client:dev": "cd portfolio && npm run dev",
-    "client:build": "cd portfolio && npm run build",
-    "build": "cd portfolio && npm install --include=dev && npm run build",
-    "client:preview": "cd portfolio && npm run preview",
-    "install:all": "npm install && cd server && npm install && cd ../portfolio && npm install"
-  },
+  "client:build": "cd portfolio && npm run build",
+  "start": "cd server && npm start",
+  "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+  "server:dev": "cd server && npm run dev",
+  "client:dev": "cd portfolio && npm run dev",
+  "install:all": "npm install && cd server && npm install && cd ../portfolio && npm install"
+},
+
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "concurrently": "^8.2.2",
