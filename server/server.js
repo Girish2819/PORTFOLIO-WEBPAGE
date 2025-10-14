@@ -23,12 +23,12 @@ mongoose
   .then(() => console.log('✅ MongoDB connected'))
   .catch((err) => console.log('❌ MongoDB connection error:', err));
 
-// ✅ Serve frontend (React build)
-app.use(express.static(path.join(__dirname, 'portfolio/dist')));
+// Serve frontend build
+app.use(express.static(path.join(__dirname, '../portfolio/dist')));
 
-// ✅ Catch-all route (fix for Render)
+// Catch-all route
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'portfolio/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../portfolio/dist/index.html'));
 });
 
 // Start server
