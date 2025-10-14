@@ -165,10 +165,10 @@ const Hero = () => {
           }`}>
             <button
               onClick={scrollToExperience}
-              className="group bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-bold px-4 xs:px-6 sm:px-8 md:px-10 py-2 xs:py-3 sm:py-4 rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 sm:gap-3 shadow-2xl hover:shadow-blue-500/25 border border-white/20 text-xs xs:text-sm sm:text-base md:text-lg"
+              className="group bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-bold px-6 py-3 rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2 shadow-2xl hover:shadow-blue-500/25 border border-white/20 text-sm"
             >
-              <span className="text-xs xs:text-sm sm:text-base md:text-lg">Explore My Work</span>
-              <ChevronDown className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
+              <span>Explore My Work</span>
+              <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform" />
             </button>
              
           </div>

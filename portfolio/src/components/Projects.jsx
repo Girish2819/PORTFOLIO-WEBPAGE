@@ -1,27 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Code, ExternalLink, Github, Eye, Calendar, User, Star, ArrowRight } from "lucide-react";
+import { useScrollAnimationWithRef } from "../hooks/useScrollAnimation";
 
 const Projects = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [hoveredProject, setHoveredProject] = useState(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      observer.observe(projectsSection);
-    }
-
-    return () => observer.disconnect();
-  }, []);
+  const [setRef, isVisible] = useScrollAnimationWithRef(0.1, 200);
 
   const projects = [
     {
@@ -117,8 +100,8 @@ const Projects = () => {
 
   return (
     <section id="projects" className="section-padding relative z-30">
-      <div className="container-max relative z-10">
-        <div className="text-center mb-8 xs:mb-12 sm:mb-16 px-2 xs:px-4">
+      <div ref={setRef} className="container-max relative z-10">
+        <div className={`text-center mb-8 xs:mb-12 sm:mb-16 px-2 xs:px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 xs:mb-4 sm:mb-6 text-white">
             Featured Projects
           </h2>
@@ -133,9 +116,9 @@ const Projects = () => {
           {projects.map((project, index) => (
             <div 
               key={index} 
-              className={`flex justify-center ${index % 2 === 0 ? 'lg:justify-start' : 'lg:justify-end'}`}
+              className={`flex justify-center ${index % 2 === 0 ? 'lg:justify-start' : 'lg:justify-end'} transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{
-                animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
+                transitionDelay: `${400 + index * 200}ms`
               }}
             >
               <div className="w-full max-w-xs xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-4xl">

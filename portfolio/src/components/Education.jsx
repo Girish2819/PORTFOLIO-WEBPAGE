@@ -1,10 +1,12 @@
 import React from "react";
 import { GraduationCap, Calendar, MapPin } from "lucide-react";
+import { useScrollAnimationWithRef } from "../hooks/useScrollAnimation";
 import rgiptImage from "../assets/rgipt.jpeg";
 import stXavierImage from "../assets/st.xavier.jpeg";
 import sunShineImage from "../assets/sun-shine.jpeg";
 
 const Education = () => {
+  const [setRef, isVisible] = useScrollAnimationWithRef(0.1, 200);
   const education = [
     {
       degree: "B.Tech in Computer Science",
@@ -37,8 +39,8 @@ const Education = () => {
 
   return (
     <section id="education" className="section-padding relative z-30">
-      <div className="container-max relative z-10">
-        <div className="text-center mb-16">
+      <div ref={setRef} className="container-max relative z-10">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-5xl font-bold mb-6 text-white">
             Education
           </h2>
@@ -52,7 +54,8 @@ const Education = () => {
           {education.map((edu, index) => (
             <div
               key={index}
-              className="glass-effect rounded-2xl overflow-hidden card-hover group"
+              className={`glass-effect rounded-2xl overflow-hidden card-hover group transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${300 + index * 200}ms` }}
             >
               {/* Background Image with Overlay */}
               <div className="relative h-48 overflow-hidden">

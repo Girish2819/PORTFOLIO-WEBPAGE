@@ -1,7 +1,9 @@
 import React from "react";
 import { Award } from "lucide-react";
+import { useScrollAnimationWithRef } from "../hooks/useScrollAnimation";
 
 const Achievements = () => {
+  const [setRef, isVisible] = useScrollAnimationWithRef(0.1, 200);
   const achievements = [
     { icon: "🏆", title: "3rd Rank Globally", desc: "AAPG SDEC Competition 2025" },
     { icon: "📚", title: "JEE Advanced", desc: "AIR 18862 (EWS 2855)" },
@@ -10,8 +12,8 @@ const Achievements = () => {
 
   return (
     <section id="achievements" className="section-padding relative z-30">
-      <div className="container-max relative z-10">
-        <div className="text-center mb-16">
+      <div ref={setRef} className="container-max relative z-10">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-5xl font-bold mb-6 text-white">
             <Award className="inline mr-3" size={36} />
             Achievements
@@ -21,7 +23,11 @@ const Achievements = () => {
 
         <div className="grid md:grid-cols-3 gap-6">
           {achievements.map((ach, idx) => (
-            <div key={idx} className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-purple-500/30 text-center hover:scale-105 transform transition">
+            <div 
+              key={idx} 
+              className={`bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-purple-500/30 text-center hover:scale-105 transform transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${300 + idx * 200}ms` }}
+            >
               <div className="text-4xl mb-3">{ach.icon}</div>
               <h3 className="text-xl font-bold text-white mb-2">{ach.title}</h3>
               <p className="text-gray-400">{ach.desc}</p>
