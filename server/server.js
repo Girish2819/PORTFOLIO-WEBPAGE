@@ -17,11 +17,26 @@ app.use(express.json());
 app.use('/api/contacts', contactRoutes);
 app.use('/api/blogs', blogRoutes);
 
-// MongoDB connection
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log('✅ MongoDB connected'))
-  .catch((err) => console.log('❌ MongoDB connection error:', err));
+// MongoDB connection with better options for production
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 30000, // 30 seconds
+      socketTimeoutMS: 45000, // 45 seconds
+      bufferMaxEntries: 0, // Disable mongoose buffering
+      bufferCommands: false, // Disable mongoose buffering
+    });
+    console.log('✅ MongoDB connected');
+  } catch (error) {
+    console.log('❌ MongoDB connection error:', error.message);
+    // Retry connection after 5 seconds
+    setTimeout(connectDB, 5000);
+  }
+};
+
+connectDB();
 
 // Serve frontend build
 app.use(express.static(path.join(__dirname, '../portfolio/dist')));
