@@ -20,14 +20,14 @@ app.use('/api/blogs', blogRoutes);
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log('MongoDB connection error:', err));
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch((err) => console.log('❌ MongoDB connection error:', err));
 
 // ✅ Serve frontend (React build)
 app.use(express.static(path.join(__dirname, 'portfolio/dist')));
 
-// ✅ All other routes → React index.html
-app.get('/*', (req, res) => {
+// ✅ Catch-all route (fix for Render)
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'portfolio/dist/index.html'));
 });
 
