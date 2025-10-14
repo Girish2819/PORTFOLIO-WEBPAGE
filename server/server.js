@@ -27,7 +27,7 @@ mongoose
 app.use(express.static(path.join(__dirname, '../portfolio/dist')));
 
 // Catch-all route
-app.get('*', (req, res) => {
+app.get('(.*)', (req, res) => {
   res.sendFile(path.join(__dirname, '../portfolio/dist/index.html'));
 });
 
