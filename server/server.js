@@ -26,8 +26,13 @@ mongoose
 // Serve frontend build
 app.use(express.static(path.join(__dirname, '../portfolio/dist')));
 
-// Catch-all route for SPA
-app.get('(/*)', (req, res) => {
+// Catch-all route for SPA - handle all non-API routes
+app.use((req, res, next) => {
+  // Skip if it's an API route
+  if (req.path.startsWith('/api/')) {
+    return next();
+  }
+  // Serve the React app for all other routes
   res.sendFile(path.join(__dirname, '../portfolio/dist/index.html'));
 });
 
