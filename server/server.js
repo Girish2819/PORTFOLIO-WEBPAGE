@@ -19,6 +19,10 @@ mongoose
   .then(() => console.log('✅ MongoDB connected'))
   .catch((err) => console.log('❌ MongoDB connection error:', err));
 
+// API routes - MUST come before static file serving
+app.use('/api/contacts', contactRoutes);
+app.use('/api/blogs', blogRoutes);
+
 // Serve frontend build
 app.use(express.static(path.join(__dirname, '../portfolio/dist')));
 
@@ -31,10 +35,6 @@ app.use((req, res, next) => {
   // Serve the React app for all other routes
   res.sendFile(path.join(__dirname, '../portfolio/dist/index.html'));
 });
-
-// API routes
-app.use('/api/contacts', contactRoutes);
-app.use('/api/blogs', blogRoutes);
 
 // Start server
 const port = process.env.PORT || 5000;

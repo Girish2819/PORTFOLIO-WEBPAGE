@@ -20,6 +20,19 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Basic client-side validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    
     try {
       const response = await fetch('/api/contacts', {
         method: 'POST',
@@ -36,7 +49,8 @@ const Contact = () => {
         setFormData({ name: '', email: '', message: '' });
         alert('Message sent successfully! I\'ll get back to you soon.');
       } else {
-        alert('Failed to send message. Please try again.');
+        // Show specific error message from server
+        alert(result.message || 'Failed to send message. Please try again.');
       }
     } catch (error) {
       console.error('Error sending message:', error);
