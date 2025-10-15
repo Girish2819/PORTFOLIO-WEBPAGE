@@ -44,20 +44,13 @@ const Contact = () => {
     setSubmitStatus(null);
     
     try {
-      // Create AbortController for timeout
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-
       const response = await fetch('/api/contacts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-        signal: controller.signal
       });
-
-      clearTimeout(timeoutId);
 
       const result = await response.json();
 
@@ -72,13 +65,8 @@ const Contact = () => {
       }
     } catch (error) {
       console.error('Error sending message:', error);
-      if (error.name === 'AbortError') {
-        setSubmitStatus('error');
-        setTimeout(() => setSubmitStatus(null), 5000);
-      } else {
-        setSubmitStatus('error');
-        setTimeout(() => setSubmitStatus(null), 5000);
-      }
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 5000);
     } finally {
       setIsSubmitting(false);
     }
