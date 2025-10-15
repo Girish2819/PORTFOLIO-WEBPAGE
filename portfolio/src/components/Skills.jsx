@@ -56,12 +56,20 @@ const Skills = () => {
     const initialSkills = skillData.map((skill, index) => {
       const radius = Math.max(12, Math.min(40, containerSize.width / 18));
       let x, y;
+      let attempts = 0;
       
-      // Ensure balls start inside the circle
+      // Ensure balls start well inside the circle with multiple attempts
       do {
         x = Math.random() * (containerSize.width - radius * 2) + radius;
         y = Math.random() * (containerSize.height - radius * 2) + radius;
-      } while (Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2) + radius > containerRadius);
+        attempts++;
+      } while (Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2) + radius > containerRadius - 10 && attempts < 50);
+      
+      // If still outside after attempts, place near center
+      if (Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2) + radius > containerRadius - 10) {
+        x = centerX + (Math.random() - 0.5) * (containerRadius - radius - 20);
+        y = centerY + (Math.random() - 0.5) * (containerRadius - radius - 20);
+      }
       
       return {
         id: index,
@@ -69,8 +77,8 @@ const Skills = () => {
         iconUrl: skill.iconUrl,
         x,
         y,
-        vx: (Math.random() - 0.5) * 4,
-        vy: (Math.random() - 0.5) * 4,
+        vx: (Math.random() - 0.5) * 3, // Reduced initial velocity
+        vy: (Math.random() - 0.5) * 3,
         radius,
       };
     });
@@ -108,14 +116,14 @@ const Skills = () => {
           const containerRadius = containerSize.width / 2;
           const distanceFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
           
-          // Check if ball is outside or touching the circular boundary
-          if (distanceFromCenter + skill.radius > containerRadius) {
+          // Check if ball is outside the circular boundary (more strict check)
+          if (distanceFromCenter + radius >= containerRadius) {
             // Calculate normal vector from center to ball
             const nx = (x - centerX) / distanceFromCenter;
             const ny = (y - centerY) / distanceFromCenter;
             
-            // Position the ball just inside the boundary
-            const targetDistance = containerRadius - skill.radius - 1; // -1 for safety margin
+            // Position the ball just inside the boundary with safety margin
+            const targetDistance = containerRadius - radius - 2; // -2 for safety margin
             x = centerX + nx * targetDistance;
             y = centerY + ny * targetDistance;
             
@@ -125,16 +133,25 @@ const Skills = () => {
             vy = vy - 2 * dotProduct * ny;
             
             // Add some damping to prevent infinite bouncing
-            vx *= 0.8;
-            vy *= 0.8;
+            vx *= 0.85;
+            vy *= 0.85;
             
             // Decrease ball size when hitting boundary (with minimum size)
             const newRadius = Math.max(8, skill.radius * 0.9);
             skill.radius = newRadius;
             
             // Add some randomness to prevent balls from getting stuck
-            vx += (Math.random() - 0.5) * 0.3;
-            vy += (Math.random() - 0.5) * 0.3;
+            vx += (Math.random() - 0.5) * 0.2;
+            vy += (Math.random() - 0.5) * 0.2;
+          }
+          
+          // Additional safety check - force ball inside if somehow it's still outside
+          const finalDistance = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+          if (finalDistance + radius > containerRadius) {
+            const nx = (x - centerX) / finalDistance;
+            const ny = (y - centerY) / finalDistance;
+            x = centerX + nx * (containerRadius - radius - 3);
+            y = centerY + ny * (containerRadius - radius - 3);
           }
 
           // Check collision with other balls
