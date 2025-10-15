@@ -28,7 +28,7 @@ const Skills = () => {
 
   const skillData = [
     { name: "HTML5", iconUrl: "https://cdn.simpleicons.org/html5/E34F26" },
-    { name: "CSS3", iconUrl: "https://cdn.simpleicons.org/css3/1572B6" },
+    { name: "CSS3", iconUrl: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@develop/icons/css3.svg" },
     { name: "Tailwind CSS", iconUrl: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
     { name: "JavaScript", iconUrl: "https://cdn.simpleicons.org/javascript/F7DF1E" },
     { name: "React", iconUrl: "https://cdn.simpleicons.org/react/61DAFB" },
@@ -38,7 +38,7 @@ const Skills = () => {
     { name: "MySQL", iconUrl: "https://cdn.simpleicons.org/mysql/4479A1" },
     { name: "Git", iconUrl: "https://cdn.simpleicons.org/git/F05032" },
     { name: "GitHub", iconUrl: "https://cdn.simpleicons.org/github/181717" },
-    { name: "VS Code", iconUrl: "https://cdn.simpleicons.org/visualstudiocode/007ACC" },
+    { name: "VS Code", iconUrl: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@develop/icons/visualstudiocode.svg" },
     { name: "Postman", iconUrl: "https://cdn.simpleicons.org/postman/FF6C37" },
     { name: "Linux", iconUrl: "https://cdn.simpleicons.org/linux/FCC624" },
     { name: "C++", iconUrl: "https://cdn.simpleicons.org/cplusplus/00599C" },
@@ -77,8 +77,8 @@ const Skills = () => {
         iconUrl: skill.iconUrl,
         x,
         y,
-        vx: (Math.random() - 0.5) * 3, // Reduced initial velocity
-        vy: (Math.random() - 0.5) * 3,
+        vx: (Math.random() - 0.5) * 5, // Increased initial velocity for more visible bouncing
+        vy: (Math.random() - 0.5) * 5,
         radius,
       };
     });
@@ -116,33 +116,43 @@ const Skills = () => {
           const containerRadius = containerSize.width / 2;
           const distanceFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
           
-          // Check if ball is outside the circular boundary (more strict check)
+          // Check if ball is touching or outside the circular boundary
           if (distanceFromCenter + radius >= containerRadius) {
             // Calculate normal vector from center to ball
             const nx = (x - centerX) / distanceFromCenter;
             const ny = (y - centerY) / distanceFromCenter;
             
-            // Position the ball just inside the boundary with safety margin
-            const targetDistance = containerRadius - radius - 2; // -2 for safety margin
+            // Position the ball just inside the boundary
+            const targetDistance = containerRadius - radius - 1;
             x = centerX + nx * targetDistance;
             y = centerY + ny * targetDistance;
             
-            // Reflect velocity off the circular boundary
+            // Calculate velocity component perpendicular to the boundary
             const dotProduct = vx * nx + vy * ny;
-            vx = vx - 2 * dotProduct * nx;
-            vy = vy - 2 * dotProduct * ny;
             
-            // Add some damping to prevent infinite bouncing
-            vx *= 0.85;
-            vy *= 0.85;
+            // Only bounce if the ball is moving towards the boundary
+            if (dotProduct > 0) {
+              // Reflect velocity off the circular boundary (perfect elastic collision)
+              vx = vx - 2 * dotProduct * nx;
+              vy = vy - 2 * dotProduct * ny;
+              
+              // Add a small bounce boost to make it more visible
+              const bounceBoost = 1.2;
+              vx *= bounceBoost;
+              vy *= bounceBoost;
+              
+              // Light damping to prevent infinite acceleration
+              vx *= 0.95;
+              vy *= 0.95;
+            }
             
-            // Decrease ball size when hitting boundary (with minimum size)
-            const newRadius = Math.max(8, skill.radius * 0.9);
+            // Slight size change for visual feedback
+            const newRadius = Math.max(8, skill.radius * 0.95);
             skill.radius = newRadius;
             
-            // Add some randomness to prevent balls from getting stuck
-            vx += (Math.random() - 0.5) * 0.2;
-            vy += (Math.random() - 0.5) * 0.2;
+            // Add small random component to prevent predictable patterns
+            vx += (Math.random() - 0.5) * 0.1;
+            vy += (Math.random() - 0.5) * 0.1;
           }
           
           // Additional safety check - force ball inside if somehow it's still outside
@@ -253,7 +263,7 @@ const Skills = () => {
         {/* Animated Skills Container */}
         <div
           ref={containerRef}
-          className="relative mx-auto border border-gray-800/50 rounded-full overflow-hidden bg-gray-900/20 backdrop-blur-sm w-[250px] h-[250px] xs:w-[300px] xs:h-[300px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px] lg:w-[550px] lg:h-[550px] xl:w-[650px] xl:h-[650px] 2xl:w-[750px] 2xl:h-[750px]"
+          className="relative mx-auto border border-gray-800/50 rounded-full overflow-hidden bg-gray-900/20 backdrop-blur-sm w-[350px] h-[350px] xs:w-[400px] xs:h-[400px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px] xl:w-[800px] xl:h-[800px] 2xl:w-[900px] 2xl:h-[900px]"
           style={{ aspectRatio: '1/1' }}
         >
           {skills.map((skill) => (
@@ -288,12 +298,25 @@ const Skills = () => {
                   scale: 0.9,
                 }}
               >
-                <img 
-                  src={skill.iconUrl} 
-                  alt={skill.name}
-                  className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-9 xl:h-9 2xl:w-10 2xl:h-10 drop-shadow-lg"
-                  style={{ filter: 'none' }}
-                />
+                {skill.name === "CSS3" || skill.name === "VS Code" ? (
+                  <span className="text-white font-bold text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl drop-shadow-lg">
+                    {skill.name === "CSS3" ? "CSS" : "VS"}
+                  </span>
+                ) : (
+                  <img 
+                    src={skill.iconUrl} 
+                    alt={skill.name}
+                    className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-9 xl:h-9 2xl:w-10 2xl:h-10 drop-shadow-lg"
+                    style={{ filter: 'none' }}
+                    onError={(e) => {
+                      console.log(`Failed to load icon for ${skill.name}:`, skill.iconUrl);
+                      e.target.style.display = 'none';
+                    }}
+                    onLoad={() => {
+                      console.log(`Successfully loaded icon for ${skill.name}`);
+                    }}
+                  />
+                )}
               </motion.div>
               
               {/* Tooltip */}
