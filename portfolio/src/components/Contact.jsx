@@ -44,7 +44,12 @@ const Contact = () => {
     setSubmitStatus(null);
     
     try {
-      const response = await fetch('/api/contacts', {
+      // Use dynamic API URL for both local and production
+      const apiUrl = import.meta.env.DEV 
+        ? 'http://localhost:5000/api/contacts' 
+        : '/api/contacts';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
