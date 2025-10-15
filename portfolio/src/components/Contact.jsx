@@ -9,6 +9,8 @@ const Contact = () => {
     email: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', null
 
   const handleChange = (e) => {
     setFormData({
@@ -20,18 +22,26 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    // Prevent multiple submissions
+    if (isSubmitting) return;
+    
     // Basic client-side validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      alert('Please fill in all fields.');
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 3000);
       return;
     }
 
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      alert('Please enter a valid email address.');
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 3000);
       return;
     }
+    
+    setIsSubmitting(true);
+    setSubmitStatus(null);
     
     try {
       const response = await fetch('/api/contacts', {
@@ -47,14 +57,18 @@ const Contact = () => {
       if (response.ok) {
         // Reset form
         setFormData({ name: '', email: '', message: '' });
-        alert('Message sent successfully! I\'ll get back to you soon.');
+        setSubmitStatus('success');
+        setTimeout(() => setSubmitStatus(null), 5000);
       } else {
-        // Show specific error message from server
-        alert(result.message || 'Failed to send message. Please try again.');
+        setSubmitStatus('error');
+        setTimeout(() => setSubmitStatus(null), 5000);
       }
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Failed to send message. Please check your connection and try again.');
+      setSubmitStatus('error');
+      setTimeout(() => setSubmitStatus(null), 5000);
+    } finally {
+      setIsSubmitting(false);
     }
   };
   return (
@@ -125,11 +139,38 @@ const Contact = () => {
               
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className={`w-full font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform flex items-center justify-center gap-2 ${
+                  isSubmitting 
+                    ? 'bg-gray-600 cursor-not-allowed' 
+                    : 'bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 hover:scale-105'
+                }`}
               >
-                <Send size={20} />
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send size={20} />
+                    Send Message
+                  </>
+                )}
               </button>
+              
+              {/* Status Messages */}
+              {submitStatus === 'success' && (
+                <div className="mt-4 p-3 bg-green-500/20 border border-green-500/50 rounded-lg text-green-300 text-center">
+                  ✅ Message sent successfully! I'll get back to you soon.
+                </div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <div className="mt-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-300 text-center">
+                  ❌ Failed to send message. Please try again.
+                </div>
+              )}
             </form>
           </div>
 

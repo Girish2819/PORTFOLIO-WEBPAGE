@@ -48,7 +48,7 @@ export default function Navbar() {
   return (
     <header className="fixed w-full top-0 left-0 right-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center md:justify-center items-center">
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center bg-white/5 backdrop-blur-xl border border-white/10 rounded-full px-6 py-3 shadow-2xl shadow-purple-500/20 hover:shadow-purple-500/30 transition-all duration-500">
             <div className="flex items-center gap-4">
@@ -81,10 +81,10 @@ export default function Navbar() {
             </div>
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - positioned to the right */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden bg-white/5 backdrop-blur-xl border border-white/10 rounded-full p-3 text-white hover:bg-white/10 transition-all duration-300"
+            className="md:hidden bg-white/5 backdrop-blur-xl border border-white/10 rounded-full p-3 text-white hover:bg-white/10 transition-all duration-300 ml-auto"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>

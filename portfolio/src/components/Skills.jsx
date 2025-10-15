@@ -49,16 +49,31 @@ const Skills = () => {
 
   // Initialize skills with random positions and velocities
   useEffect(() => {
-    const initialSkills = skillData.map((skill, index) => ({
-      id: index,
-      name: skill.name,
-      iconUrl: skill.iconUrl,
-      x: Math.random() * (containerSize.width - 60),
-      y: Math.random() * (containerSize.height - 60),
-      vx: (Math.random() - 0.5) * 4,
-      vy: (Math.random() - 0.5) * 4,
-      radius: Math.max(12, Math.min(40, containerSize.width / 18)), // Better responsive ball size
-    }));
+    const centerX = containerSize.width / 2;
+    const centerY = containerSize.height / 2;
+    const containerRadius = containerSize.width / 2;
+    
+    const initialSkills = skillData.map((skill, index) => {
+      const radius = Math.max(12, Math.min(40, containerSize.width / 18));
+      let x, y;
+      
+      // Ensure balls start inside the circle
+      do {
+        x = Math.random() * (containerSize.width - radius * 2) + radius;
+        y = Math.random() * (containerSize.height - radius * 2) + radius;
+      } while (Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2) + radius > containerRadius);
+      
+      return {
+        id: index,
+        name: skill.name,
+        iconUrl: skill.iconUrl,
+        x,
+        y,
+        vx: (Math.random() - 0.5) * 4,
+        vy: (Math.random() - 0.5) * 4,
+        radius,
+      };
+    });
 
     setSkills(initialSkills);
   }, [containerSize]); // Re-run when container size changes
@@ -93,28 +108,33 @@ const Skills = () => {
           const containerRadius = containerSize.width / 2;
           const distanceFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
           
-          if (distanceFromCenter + skill.radius >= containerRadius) {
+          // Check if ball is outside or touching the circular boundary
+          if (distanceFromCenter + skill.radius > containerRadius) {
             // Calculate normal vector from center to ball
             const nx = (x - centerX) / distanceFromCenter;
             const ny = (y - centerY) / distanceFromCenter;
             
-            // Reflect velocity off the circular boundary with bounce effect
+            // Position the ball just inside the boundary
+            const targetDistance = containerRadius - skill.radius - 1; // -1 for safety margin
+            x = centerX + nx * targetDistance;
+            y = centerY + ny * targetDistance;
+            
+            // Reflect velocity off the circular boundary
             const dotProduct = vx * nx + vy * ny;
             vx = vx - 2 * dotProduct * nx;
             vy = vy - 2 * dotProduct * ny;
             
-            // Position the ball just inside the boundary
-            const targetDistance = containerRadius - skill.radius;
-            x = centerX + nx * targetDistance;
-            y = centerY + ny * targetDistance;
+            // Add some damping to prevent infinite bouncing
+            vx *= 0.8;
+            vy *= 0.8;
             
             // Decrease ball size when hitting boundary (with minimum size)
             const newRadius = Math.max(8, skill.radius * 0.9);
             skill.radius = newRadius;
             
             // Add some randomness to prevent balls from getting stuck
-            vx += (Math.random() - 0.5) * 0.5;
-            vy += (Math.random() - 0.5) * 0.5;
+            vx += (Math.random() - 0.5) * 0.3;
+            vy += (Math.random() - 0.5) * 0.3;
           }
 
           // Check collision with other balls
@@ -227,8 +247,10 @@ const Skills = () => {
                   width: skill.radius * 2,
                   height: skill.radius * 2,
                   borderRadius: '50%',
-                  background: `linear-gradient(135deg, #6366f1, #8b5cf6)`,
-                  boxShadow: `0 0 20px rgba(99, 102, 241, 0.4), inset 0 0 20px rgba(255,255,255,0.1)`,
+                  background: `rgba(255, 255, 255, 0.1)`,
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  boxShadow: `0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)`,
                   left: skill.x - skill.radius,
                   top: skill.y - skill.radius,
                 }}
@@ -243,7 +265,7 @@ const Skills = () => {
                 }}
                 whileHover={{
                   scale: 1.2,
-                  boxShadow: `0 0 30px rgba(99, 102, 241, 0.6), inset 0 0 30px rgba(255,255,255,0.2)`,
+                  boxShadow: `0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)`,
                 }}
                 whileTap={{
                   scale: 0.9,
@@ -253,7 +275,7 @@ const Skills = () => {
                   src={skill.iconUrl} 
                   alt={skill.name}
                   className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-9 xl:h-9 2xl:w-10 2xl:h-10 drop-shadow-lg"
-                  style={{ filter: 'brightness(0) invert(1)' }}
+                  style={{ filter: 'none' }}
                 />
               </motion.div>
               
