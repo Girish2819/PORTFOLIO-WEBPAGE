@@ -18,11 +18,12 @@ const Experience = () => {
 
   const experiences = [
     {
-      title: "Software Development Engineer Intern",
+      title: "SDE Intern",
       company: "Salahkart",
       date: "Aug 2025 - Present",
       details: [
-        "Worked on backend and full-stack development tasks",
+        "Worked on developing and enhancing Salah Kart’s website and a Chrome extension",
+        "gaining hands-on experience in front-end and back-end web development.",
         "Contributed to building scalable features and optimizing application performance",
       ],
     },

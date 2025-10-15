@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 const Skills = () => {
   const containerRef = useRef(null);
+  const lastTimestampRef = useRef(null);
   const [containerSize, setContainerSize] = useState({ width: 300, height: 300 });
 
   // Update container size based on screen size
@@ -27,27 +28,27 @@ const Skills = () => {
   const [skills, setSkills] = useState([]);
 
   const skillData = [
-    { name: "HTML5", iconUrl: "https://cdn.simpleicons.org/html5/E34F26" },
-    { name: "CSS3", iconUrl: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@develop/icons/css3.svg" },
-    { name: "Tailwind CSS", iconUrl: "https://cdn.simpleicons.org/tailwindcss/06B6D4" },
-    { name: "JavaScript", iconUrl: "https://cdn.simpleicons.org/javascript/F7DF1E" },
-    { name: "React", iconUrl: "https://cdn.simpleicons.org/react/61DAFB" },
-    { name: "Node.js", iconUrl: "https://cdn.simpleicons.org/nodedotjs/339933" },
-    { name: "Express.js", iconUrl: "https://cdn.simpleicons.org/express/000000" },
-    { name: "MongoDB", iconUrl: "https://cdn.simpleicons.org/mongodb/47A248" },
-    { name: "MySQL", iconUrl: "https://cdn.simpleicons.org/mysql/4479A1" },
-    { name: "Git", iconUrl: "https://cdn.simpleicons.org/git/F05032" },
-    { name: "GitHub", iconUrl: "https://cdn.simpleicons.org/github/181717" },
-    { name: "VS Code", iconUrl: "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@develop/icons/visualstudiocode.svg" },
-    { name: "Postman", iconUrl: "https://cdn.simpleicons.org/postman/FF6C37" },
-    { name: "Linux", iconUrl: "https://cdn.simpleicons.org/linux/FCC624" },
-    { name: "C++", iconUrl: "https://cdn.simpleicons.org/cplusplus/00599C" },
-    { name: "Python", iconUrl: "https://cdn.simpleicons.org/python/3776AB" },
-    { name: "C", iconUrl: "https://cdn.simpleicons.org/c/A8B9CC" },
+    { name: "HTML5", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg", color: "#E34F26" },
+    { name: "CSS3", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg", color: "#1572B6" },
+    { name: "Tailwind CSS", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", color: "#06B6D4" },
+    { name: "JavaScript", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg", color: "#F7DF1E" },
+    { name: "React", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", color: "#61DAFB" },
+    { name: "Node.js", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg", color: "#339933" },
+    { name: "Express.js", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg", color: "#000000" },
+    { name: "MongoDB", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg", color: "#47A248" },
+    { name: "MySQL", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg", color: "#4479A1" },
+    { name: "Git", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg", color: "#F05032" },
+    { name: "GitHub", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg", color: "#181717" },
+    { name: "VS Code", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg", color: "#007ACC" },
+    { name: "Postman", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg", color: "#FF6C37" },
+    { name: "Linux", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg", color: "#FCC624" },
+    { name: "C++", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg", color: "#00599C" },
+    { name: "Python", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg", color: "#3776AB" },
+    { name: "C", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg", color: "#A8B9CC" },
   ];
   
 
-  // Initialize skills with random positions and velocities
+  // Initialize skills with random positions and constant speed directions
   useEffect(() => {
     const centerX = containerSize.width / 2;
     const centerY = containerSize.height / 2;
@@ -63,52 +64,75 @@ const Skills = () => {
         x = Math.random() * (containerSize.width - radius * 2) + radius;
         y = Math.random() * (containerSize.height - radius * 2) + radius;
         attempts++;
-      } while (Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2) + radius > containerRadius - 10 && attempts < 50);
+      } while (Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2) + radius > containerRadius - 20 && attempts < 50);
       
       // If still outside after attempts, place near center
-      if (Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2) + radius > containerRadius - 10) {
-        x = centerX + (Math.random() - 0.5) * (containerRadius - radius - 20);
-        y = centerY + (Math.random() - 0.5) * (containerRadius - radius - 20);
+      if (Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2) + radius > containerRadius - 20) {
+        x = centerX + (Math.random() - 0.5) * (containerRadius - radius - 30);
+        y = centerY + (Math.random() - 0.5) * (containerRadius - radius - 30);
       }
-      
+
+      // Assign a constant speed (px/s) per ball and a normalized direction - slower and smoother
+      const baseSpeed = Math.max(30, containerSize.width * 0.12); // px/s, much slower for smooth motion
+      const speedJitter = (Math.random() * 0.3 + 0.8); // 0.8x - 1.1x for variation
+      const speed = baseSpeed * speedJitter;
+      const angle = Math.random() * Math.PI * 2;
+      const dirX = Math.cos(angle);
+      const dirY = Math.sin(angle);
+
       return {
         id: index,
         name: skill.name,
         iconUrl: skill.iconUrl,
+        color: skill.color,
         x,
         y,
-        vx: (Math.random() - 0.5) * 5, // Increased initial velocity for more visible bouncing
-        vy: (Math.random() - 0.5) * 5,
+        // Keep direction unit-length and speed constant over time
+        dirX,
+        dirY,
+        speed,
         radius,
       };
     });
 
     setSkills(initialSkills);
+    lastTimestampRef.current = null;
   }, [containerSize]); // Re-run when container size changes
 
-  // Animation loop with collision detection
+  // Animation loop with time-based constant-speed motion and boundary bounces
   useEffect(() => {
     if (skills.length === 0) return;
 
     let animationId;
-    const animate = () => {
+    const animate = (timestamp) => {
+      // Compute delta time in seconds
+      if (lastTimestampRef.current == null) lastTimestampRef.current = timestamp;
+      const dtMs = timestamp - lastTimestampRef.current;
+      lastTimestampRef.current = timestamp;
+      const dt = Math.min(0.05, Math.max(0.0, dtMs / 1000)); // clamp dt to avoid spikes
+
       setSkills(prevSkills => {
         const updatedSkills = [...prevSkills];
         
         // Update positions and handle collisions
         for (let i = 0; i < updatedSkills.length; i++) {
           let skill = updatedSkills[i];
-          let { x, y, vx, vy, radius } = skill;
+          let { x, y, dirX, dirY, speed, radius } = skill;
 
-          // Update position
-          x += vx;
-          y += vy;
+          // Ensure direction is normalized
+          const dirLen = Math.hypot(dirX, dirY) || 1;
+          dirX /= dirLen;
+          dirY /= dirLen;
+
+          // Update position with constant speed (px/s)
+          const dx = dirX * speed * dt;
+          const dy = dirY * speed * dt;
+          x += dx;
+          y += dy;
           
-          // Gradually recover ball size over time (grow back slowly)
+          // Keep radius constant for smooth visuals (no pulsating)
           const maxRadius = Math.max(12, Math.min(40, containerSize.width / 18));
-          if (skill.radius < maxRadius) {
-            skill.radius = Math.min(maxRadius, skill.radius + 0.1);
-          }
+          skill.radius = Math.min(maxRadius, skill.radius);
 
           // Bounce off circular walls
           const centerX = containerSize.width / 2;
@@ -122,37 +146,20 @@ const Skills = () => {
             const nx = (x - centerX) / distanceFromCenter;
             const ny = (y - centerY) / distanceFromCenter;
             
-            // Position the ball just inside the boundary
-            const targetDistance = containerRadius - radius - 1;
+            // Position the ball just inside the boundary with proper margin
+            const targetDistance = containerRadius - radius - 2;
             x = centerX + nx * targetDistance;
             y = centerY + ny * targetDistance;
             
-            // Calculate velocity component perpendicular to the boundary
-            const dotProduct = vx * nx + vy * ny;
-            
-            // Only bounce if the ball is moving towards the boundary
-            if (dotProduct > 0) {
-              // Reflect velocity off the circular boundary (perfect elastic collision)
-              vx = vx - 2 * dotProduct * nx;
-              vy = vy - 2 * dotProduct * ny;
-              
-              // Add a small bounce boost to make it more visible
-              const bounceBoost = 1.2;
-              vx *= bounceBoost;
-              vy *= bounceBoost;
-              
-              // Light damping to prevent infinite acceleration
-              vx *= 0.95;
-              vy *= 0.95;
+            // Reflect direction vector across the normal; preserve speed
+            const dot = dirX * nx + dirY * ny;
+            if (dot > 0) {
+              dirX = dirX - 2 * dot * nx;
+              dirY = dirY - 2 * dot * ny;
+              const newLen = Math.hypot(dirX, dirY) || 1;
+              dirX /= newLen;
+              dirY /= newLen;
             }
-            
-            // Slight size change for visual feedback
-            const newRadius = Math.max(8, skill.radius * 0.95);
-            skill.radius = newRadius;
-            
-            // Add small random component to prevent predictable patterns
-            vx += (Math.random() - 0.5) * 0.1;
-            vy += (Math.random() - 0.5) * 0.1;
           }
           
           // Additional safety check - force ball inside if somehow it's still outside
@@ -160,77 +167,19 @@ const Skills = () => {
           if (finalDistance + radius > containerRadius) {
             const nx = (x - centerX) / finalDistance;
             const ny = (y - centerY) / finalDistance;
-            x = centerX + nx * (containerRadius - radius - 3);
-            y = centerY + ny * (containerRadius - radius - 3);
+            x = centerX + nx * (containerRadius - radius - 5);
+            y = centerY + ny * (containerRadius - radius - 5);
           }
 
-          // Check collision with other balls
-          for (let j = i + 1; j < updatedSkills.length; j++) {
-            const otherSkill = updatedSkills[j];
-            const dx = x - otherSkill.x;
-            const dy = y - otherSkill.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const minDistance = radius + otherSkill.radius;
-
-            if (distance < minDistance && distance > 0) {
-              // Calculate collision response
-              const angle = Math.atan2(dy, dx);
-              const targetX = otherSkill.x + Math.cos(angle) * minDistance;
-              const targetY = otherSkill.y + Math.sin(angle) * minDistance;
-              
-              // Separate the balls
-              const ax = (targetX - x) * 0.5;
-              const ay = (targetY - y) * 0.5;
-              
-              // Update positions to prevent overlap
-              x += ax;
-              y += ay;
-              updatedSkills[j] = {
-                ...otherSkill,
-                x: otherSkill.x - ax,
-                y: otherSkill.y - ay,
-              };
-
-              // Calculate new velocities (elastic collision)
-              const vx1 = vx;
-              const vy1 = vy;
-              const vx2 = otherSkill.vx;
-              const vy2 = otherSkill.vy;
-
-              // Normal vector
-              const nx = dx / distance;
-              const ny = dy / distance;
-
-              // Relative velocity
-              const dvx = vx1 - vx2;
-              const dvy = vy1 - vy2;
-
-              // Relative velocity in collision normal direction
-              const dvn = dvx * nx + dvy * ny;
-
-              // Do not resolve if velocities are separating
-              if (dvn > 0) continue;
-
-              // Collision impulse
-              const impulse = 2 * dvn / 2; // Assuming equal masses
-
-              // Update velocities
-              vx = vx1 - impulse * nx;
-              vy = vy1 - impulse * ny;
-              updatedSkills[j] = {
-                ...updatedSkills[j],
-                vx: vx2 + impulse * nx,
-                vy: vy2 + impulse * ny,
-              };
-            }
-          }
+          // Disable ball-ball collisions for smoother, constant motion
 
           updatedSkills[i] = {
             ...skill,
             x,
             y,
-            vx,
-            vy,
+            dirX,
+            dirY,
+            speed,
             radius: skill.radius,
           };
         }
@@ -259,75 +208,76 @@ const Skills = () => {
           </h2>
           <div className="w-12 xs:w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto rounded-full mb-3 xs:mb-4 sm:mb-6"></div>
         </div>
-
-        {/* Animated Skills Container */}
+        {/* Clean Circular Skills Container */}
         <div
           ref={containerRef}
-          className="relative mx-auto border border-gray-800/50 rounded-full overflow-hidden bg-gray-900/20 backdrop-blur-sm w-[350px] h-[350px] xs:w-[400px] xs:h-[400px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px] xl:w-[800px] xl:h-[800px] 2xl:w-[900px] 2xl:h-[900px]"
+          className="relative mx-auto rounded-full overflow-hidden bg-gradient-to-br from-gray-900/30 to-gray-800/20 backdrop-blur-sm border-2 border-white/10 shadow-2xl w-[350px] h-[350px] xs:w-[400px] xs:h-[400px] sm:w-[500px] sm:h-[500px] md:w-[600px] md:h-[600px] lg:w-[700px] lg:h-[700px] xl:w-[800px] xl:h-[800px] 2xl:w-[900px] 2xl:h-[900px]"
           style={{ aspectRatio: '1/1' }}
         >
           {skills.map((skill) => (
             <div key={skill.id} className="relative group">
               <motion.div
-                className="absolute flex items-center justify-center text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold text-white shadow-lg cursor-pointer hover:scale-110 transition-transform duration-200"
+                className="absolute flex items-center justify-center cursor-pointer hover:scale-110 transition-all duration-300"
                 style={{
                   width: skill.radius * 2,
                   height: skill.radius * 2,
                   borderRadius: '50%',
-                  background: `rgba(255, 255, 255, 0.1)`,
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  boxShadow: `0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)`,
+                  background: `linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))`,
+                  backdropFilter: 'blur(15px)',
+                  border: `2px solid ${skill.color}80`,
+                  boxShadow: `0 8px 32px ${skill.color}40, inset 0 1px 0 rgba(255, 255, 255, 0.2)`,
                   left: skill.x - skill.radius,
                   top: skill.y - skill.radius,
                 }}
-                animate={{
-                  x: 0,
-                  y: 0,
-                }}
-                transition={{
-                  type: "spring",
-                  damping: 20,
-                  stiffness: 100,
-                }}
                 whileHover={{
-                  scale: 1.2,
-                  boxShadow: `0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)`,
+                  scale: 1.15,
+                  boxShadow: `0 12px 40px ${skill.color}60, inset 0 1px 0 rgba(255, 255, 255, 0.3)`,
+                  transition: { duration: 0.2 }
                 }}
                 whileTap={{
-                  scale: 0.9,
+                  scale: 0.95,
+                  transition: { duration: 0.1 }
                 }}
               >
-                {skill.name === "CSS3" || skill.name === "VS Code" ? (
-                  <span className="text-white font-bold text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl drop-shadow-lg">
-                    {skill.name === "CSS3" ? "CSS" : "VS"}
-                  </span>
-                ) : (
-                  <img 
-                    src={skill.iconUrl} 
-                    alt={skill.name}
-                    className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-9 xl:h-9 2xl:w-10 2xl:h-10 drop-shadow-lg"
-                    style={{ filter: 'none' }}
-                    onError={(e) => {
-                      console.log(`Failed to load icon for ${skill.name}:`, skill.iconUrl);
-                      e.target.style.display = 'none';
-                    }}
-                    onLoad={() => {
-                      console.log(`Successfully loaded icon for ${skill.name}`);
-                    }}
-                  />
-                )}
+                <img 
+                  src={skill.iconUrl} 
+                  alt={skill.name}
+                  className="w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 2xl:w-11 2xl:h-11"
+                  style={{ 
+                    filter: 'brightness(1.2) saturate(1.3)',
+                    objectFit: 'contain',
+                    display: 'block'
+                  }}
+                  loading="lazy"
+                  onError={(e) => {
+                    console.error(`❌ Failed to load icon for ${skill.name}:`, skill.iconUrl);
+                    // Show skill name as fallback when icon fails to load
+                    e.target.style.display = 'none';
+                    if (e.target.nextSibling) {
+                      e.target.nextSibling.style.display = 'block';
+                    }
+                  }}
+                  onLoad={() => {
+                    console.log(`✅ Successfully loaded icon for ${skill.name}`);
+                  }}
+                />
+                <span 
+                  className="text-white font-bold text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl drop-shadow-lg"
+                  style={{ display: 'none' }}
+                >
+                  {skill.name}
+                </span>
               </motion.div>
               
-              {/* Tooltip */}
-              <div className="absolute z-50 px-3 py-1 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap"
+              {/* Enhanced Tooltip */}
+              <div className="absolute z-50 px-4 py-2 text-sm font-medium text-white bg-gray-900/90 backdrop-blur-sm rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap border border-white/20"
                    style={{
                      left: skill.x - skill.radius,
-                     top: skill.y - skill.radius - 40,
+                     top: skill.y - skill.radius - 50,
                      transform: 'translateX(-50%)'
                    }}>
                 {skill.name}
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900/90"></div>
               </div>
             </div>
           ))}
