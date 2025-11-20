@@ -17,8 +17,8 @@ const Projects = () => {
       icon: "🛍️",
       color: "#47A248",
       category: "fullstack",
-      github: "https://github.com/Girish2819",
-      demo: "#",
+      github: "https://github.com/Girish2819/ecommerce-app",
+      // demo: "#",
       featured: true,
       image:
         "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop",
@@ -40,8 +40,8 @@ const Projects = () => {
       icon: "🤝",
       color: "#00B5D8",
       category: "fullstack",
-      github: "https://github.com/Girish2819", // replace with actual repo if different
-      demo: "#",
+      github: "https://github.com/Girish2819/skill-connect", // replace with actual repo if different
+      // demo: "#",
       featured: true,
       image:
         "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop",
@@ -78,30 +78,34 @@ const Projects = () => {
       ],
     },
     
-    {
-      title: "Blinkit Clone",
-      role: "Frontend Developer",
-      year: "2025",
-      description:
-        "Created a responsive Blinkit clone with smooth UI, navigation, and dynamic product grid.",
-      tech: ["HTML", "CSS", "JavaScript"],
-      icon: "🛒",
-      color: "#FFCD00",
-      category: "frontend",
-      github: "https://github.com/Girish2819/blinkit.git",
-      demo: "#",
-      featured: false,
-      image:
-        "https://images.unsplash.com/photo-1607083206173-67fc75676c92?w=600&h=400&fit=crop",
-      features: ["Responsive Design", "Interactive UI", "Product Grid Layout"],
-    },
+    // {
+    //   title: "Blinkit Clone",
+    //   role: "Frontend Developer",
+    //   year: "2025",
+    //   description:
+    //     "Created a responsive Blinkit clone with smooth UI, navigation, and dynamic product grid.",
+    //   tech: ["HTML", "CSS", "JavaScript"],
+    //   icon: "🛒",
+    //   color: "#FFCD00",
+    //   category: "frontend",
+    //   github: "https://github.com/Girish2819/blinkit.git",
+    //   demo: "#",
+    //   featured: false,
+    //   image:
+    //     "https://images.unsplash.com/photo-1607083206173-67fc75676c92?w=600&h=400&fit=crop",
+    //   features: ["Responsive Design", "Interactive UI", "Product Grid Layout"],
+    // },
     
   ];
 
   return (
     <section id="projects" className="section-padding relative z-30">
       <div ref={setRef} className="container-max relative z-10">
-        <div className={`text-center mb-8 xs:mb-12 sm:mb-16 px-2 xs:px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mb-8 xs:mb-12 sm:mb-16 px-2 xs:px-4 transition-all duration-1000 ease-out ${
+          isVisible 
+            ? 'opacity-100 translate-x-0 translate-y-0' 
+            : 'opacity-0 -translate-x-[100vw] translate-y-8'
+        }`}>
           <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 xs:mb-4 sm:mb-6 text-white">
             Featured Projects
           </h2>
@@ -116,7 +120,11 @@ const Projects = () => {
           {projects.map((project, index) => (
             <div 
               key={index} 
-              className={`flex justify-center ${index % 2 === 0 ? 'lg:justify-start' : 'lg:justify-end'} transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              className={`flex justify-center ${index % 2 === 0 ? 'lg:justify-start' : 'lg:justify-end'} transition-all duration-1000 ease-out ${
+                isVisible 
+                  ? 'opacity-100 translate-x-0 translate-y-0' 
+                  : `opacity-0 ${index % 2 === 0 ? '-translate-x-[100vw]' : 'translate-x-[100vw]'} translate-y-8`
+              }`}
               style={{
                 transitionDelay: `${400 + index * 200}ms`
               }}
@@ -203,15 +211,18 @@ const Projects = () => {
                         <Github size={14} />
                         <span>Code</span>
                       </a>
-                      <a 
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-xs text-gray-400 hover:text-cyan-400 transition-colors duration-300 px-3 py-1 rounded-lg hover:bg-gray-800/50"
-                      >
-                        <Eye size={14} />
-                        <span>Demo</span>
-                      </a>
+                      {/* Demo button - commented out for E-Commerce Platform and Skill Connect Platform */}
+                      {project.demo && (
+                        <a 
+                          href={project.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-xs text-gray-400 hover:text-cyan-400 transition-colors duration-300 px-3 py-1 rounded-lg hover:bg-gray-800/50"
+                        >
+                          <Eye size={14} />
+                          <span>Demo</span>
+                        </a>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -221,8 +232,10 @@ const Projects = () => {
         </div>
 
         {/* Call to Action */}
-        <div className={`text-center mt-16 transition-all duration-1000 delay-500 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        <div className={`text-center mt-16 transition-all duration-1000 ease-out delay-500 ${
+          isVisible 
+            ? 'opacity-100 translate-x-0 translate-y-0' 
+            : 'opacity-0 translate-x-[100vw] translate-y-8'
         }`}>
           <div className="glass-effect rounded-2xl p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-white mb-4">

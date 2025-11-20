@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useScrollAnimationWithRef } from "../hooks/useScrollAnimation";
 
 const Skills = () => {
   const containerRef = useRef(null);
@@ -187,10 +188,16 @@ const Skills = () => {
     return () => cancelAnimationFrame(animationId);
   }, [skills.length, containerSize]);
 
+  const [setRef, isVisible] = useScrollAnimationWithRef(0.1, 200);
+
   return (
     <section id="skills" className="section-padding relative z-30">
-      <div className="container-max relative z-10">
-        <div className="text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16 px-2 xs:px-4">
+      <div ref={setRef} className="container-max relative z-10">
+        <div className={`text-center mb-6 xs:mb-8 sm:mb-12 md:mb-16 px-2 xs:px-4 transition-all duration-1000 ease-out ${
+          isVisible 
+            ? 'opacity-100 translate-x-0 translate-y-0' 
+            : 'opacity-0 -translate-x-[100vw] translate-y-8'
+        }`}>
           <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 xs:mb-4 sm:mb-6 text-white">
             My Skills
           </h2>
@@ -199,8 +206,12 @@ const Skills = () => {
 
         <div
           ref={containerRef}
-          className="relative mx-auto rounded-full overflow-hidden bg-gradient-to-br from-gray-900/30 to-gray-800/20 backdrop-blur-sm border-2 border-white/10 shadow-2xl"
-          style={{ width: containerSize.width, height: containerSize.height }}
+          className={`relative mx-auto rounded-full overflow-hidden bg-gradient-to-br from-gray-900/30 to-gray-800/20 backdrop-blur-sm border-2 border-white/10 shadow-2xl transition-all duration-1000 ease-out ${
+            isVisible 
+              ? 'opacity-100 translate-x-0 translate-y-0' 
+              : 'opacity-0 translate-x-[100vw] translate-y-8'
+          }`}
+          style={{ width: containerSize.width, height: containerSize.height, transitionDelay: '300ms' }}
         >
           {skills.map((skill) => (
             <div key={skill.id} className="relative group">

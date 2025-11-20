@@ -40,7 +40,11 @@ const Education = () => {
   return (
     <section id="education" className="section-padding relative z-30">
       <div ref={setRef} className="container-max relative z-10">
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mb-16 transition-all duration-1000 ease-out ${
+          isVisible 
+            ? 'opacity-100 translate-x-0 translate-y-0' 
+            : 'opacity-0 -translate-x-[100vw] translate-y-8'
+        }`}>
           <h2 className="text-5xl font-bold mb-6 text-white">
             Education
           </h2>
@@ -54,7 +58,11 @@ const Education = () => {
           {education.map((edu, index) => (
             <div
               key={index}
-              className={`glass-effect rounded-2xl overflow-hidden card-hover group transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              className={`glass-effect rounded-2xl overflow-hidden card-hover group transition-all duration-1000 ease-out ${
+                isVisible 
+                  ? 'opacity-100 translate-x-0 translate-y-0' 
+                  : `opacity-0 ${index % 2 === 0 ? '-translate-x-[100vw]' : 'translate-x-[100vw]'} translate-y-8`
+              }`}
               style={{ transitionDelay: `${300 + index * 200}ms` }}
             >
               {/* Background Image with Overlay */}

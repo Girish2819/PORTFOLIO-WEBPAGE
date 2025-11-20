@@ -13,7 +13,11 @@ const Achievements = () => {
   return (
     <section id="achievements" className="section-padding relative z-30">
       <div ref={setRef} className="container-max relative z-10">
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mb-16 transition-all duration-1000 ease-out ${
+          isVisible 
+            ? 'opacity-100 translate-x-0 translate-y-0' 
+            : 'opacity-0 -translate-x-[100vw] translate-y-8'
+        }`}>
           <h2 className="text-5xl font-bold mb-6 text-white">
             <Award className="inline mr-3" size={36} />
             Achievements
@@ -25,7 +29,11 @@ const Achievements = () => {
           {achievements.map((ach, idx) => (
             <div 
               key={idx} 
-              className={`bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-purple-500/30 text-center hover:scale-105 transform transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              className={`bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-purple-500/30 text-center hover:scale-105 transform transition-all duration-1000 ease-out ${
+                isVisible 
+                  ? 'opacity-100 translate-x-0 translate-y-0' 
+                  : `opacity-0 ${idx % 2 === 0 ? '-translate-x-[100vw]' : 'translate-x-[100vw]'} translate-y-8`
+              }`}
               style={{ transitionDelay: `${300 + idx * 200}ms` }}
             >
               <div className="text-4xl mb-3">{ach.icon}</div>

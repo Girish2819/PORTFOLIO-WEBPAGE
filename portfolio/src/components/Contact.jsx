@@ -79,7 +79,11 @@ const Contact = () => {
   return (
     <section id="contact" className="section-padding relative z-30">
       <div ref={setRef} className="container-max relative z-10">
-        <div className={`text-center mb-8 xs:mb-12 sm:mb-16 px-2 xs:px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mb-8 xs:mb-12 sm:mb-16 px-2 xs:px-4 transition-all duration-1000 ease-out ${
+          isVisible 
+            ? 'opacity-100 translate-x-0 translate-y-0' 
+            : 'opacity-0 -translate-x-[100vw] translate-y-8'
+        }`}>
           <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 xs:mb-4 sm:mb-6 text-white">
             Connect with me
           </h2>
@@ -89,9 +93,13 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className={`grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-8 sm:gap-10 md:gap-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: '300ms' }}>
+        <div className={`grid xs:grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6 xs:gap-8 sm:gap-10 md:gap-12`}>
           {/* Contact Form */}
-          <div className="bg-slate-800/50 backdrop-blur-sm p-4 xs:p-6 sm:p-8 rounded-2xl border border-purple-500/30">
+          <div className={`bg-slate-800/50 backdrop-blur-sm p-4 xs:p-6 sm:p-8 rounded-2xl border border-purple-500/30 transition-all duration-1000 ease-out ${
+            isVisible 
+              ? 'opacity-100 translate-x-0 translate-y-0' 
+              : 'opacity-0 -translate-x-[100vw] translate-y-8'
+          }`} style={{ transitionDelay: '300ms' }}>
             <h3 className="text-2xl font-bold text-white mb-6">Send me a message</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -180,7 +188,11 @@ const Contact = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-8">
+          <div className={`space-y-8 transition-all duration-1000 ease-out ${
+            isVisible 
+              ? 'opacity-100 translate-x-0 translate-y-0' 
+              : 'opacity-0 translate-x-[100vw] translate-y-8'
+          }`} style={{ transitionDelay: '500ms' }}>
             <div className="bg-slate-800/50 backdrop-blur-sm p-4 xs:p-6 sm:p-8 rounded-2xl border border-purple-500/30">
               <h3 className="text-2xl font-bold text-white mb-6">Get in touch</h3>
               
