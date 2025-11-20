@@ -45,9 +45,14 @@ const Contact = () => {
     
     try {
       // Use dynamic API URL for both local and production
+      // Support VITE_API_URL environment variable for production
       const apiUrl = import.meta.env.DEV 
         ? 'http://localhost:5000/api/contacts' 
-        : '/api/contacts';
+        : (import.meta.env.VITE_API_URL || '/api/contacts');
+      
+      // Create AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
       
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -55,23 +60,54 @@ const Contact = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       });
+
+      clearTimeout(timeoutId);
+
+      // Check if response is ok before trying to parse JSON
+      if (!response.ok) {
+        let errorMessage = 'Failed to send message';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.message || errorMessage;
+        } catch (e) {
+          // If response is not JSON, use status text
+          errorMessage = response.statusText || errorMessage;
+        }
+        console.error('Server error:', response.status, errorMessage);
+        setSubmitStatus('error');
+        setTimeout(() => setSubmitStatus(null), 5000);
+        return;
+      }
 
       const result = await response.json();
 
-      if (response.ok) {
+      if (result.success) {
         // Reset form
         setFormData({ name: '', email: '', message: '' });
         setSubmitStatus('success');
         setTimeout(() => setSubmitStatus(null), 5000);
       } else {
+        console.error('API returned error:', result.message);
         setSubmitStatus('error');
         setTimeout(() => setSubmitStatus(null), 5000);
       }
     } catch (error) {
-      console.error('Error sending message:', error);
-      setSubmitStatus('error');
-      setTimeout(() => setSubmitStatus(null), 5000);
+      // Handle different types of errors
+      if (error.name === 'AbortError') {
+        console.error('Request timeout: The server took too long to respond');
+        setSubmitStatus('error');
+        setTimeout(() => setSubmitStatus(null), 5000);
+      } else if (error instanceof TypeError && error.message.includes('fetch')) {
+        console.error('Network error: Unable to connect to server', error);
+        setSubmitStatus('error');
+        setTimeout(() => setSubmitStatus(null), 5000);
+      } else {
+        console.error('Error sending message:', error);
+        setSubmitStatus('error');
+        setTimeout(() => setSubmitStatus(null), 5000);
+      }
     } finally {
       setIsSubmitting(false);
     }
