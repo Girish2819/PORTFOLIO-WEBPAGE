@@ -189,8 +189,7 @@ const Hero = () => {
                 >
                   <div className="text-white/70 group-hover:text-white transition-colors text-xl">
                     {social.icon}
-                  </div>r.
-                  
+                  </div>
                 </a>
               ))}
             </div>
