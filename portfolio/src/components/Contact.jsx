@@ -46,7 +46,7 @@ const Contact = () => {
     try {
       // Use dynamic API URL for both local and production
       // Support VITE_API_URL environment variable for production
-     const apiUrl = `${import.meta.env.VITE_API_URL}/api/contacts`;
+     const apiUrl = `${import.meta.env.VITE_API_URL}/api/contact`;
       // Create AbortController for timeout
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
