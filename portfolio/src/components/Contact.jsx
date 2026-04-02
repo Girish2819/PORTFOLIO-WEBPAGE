@@ -47,7 +47,7 @@ const Contact = () => {
       // Use dynamic API URL for both local and production
       // Support VITE_API_URL environment variable for production
       const apiUrl = import.meta.env.DEV 
-        ? 'http://localhost:5000/api/contacts' 
+        ? 'https://portfolio-webpage-a5lo.onrender.com/api/contact' 
         : (import.meta.env.VITE_API_URL || '/api/contacts');
       
       // Create AbortController for timeout
