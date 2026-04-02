@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 //routes
-app.use('/api/contacts', contactRoutes);
+app.use('/api/contact', contactRoutes);
 app.use('/api/blogs', blogRoutes);
 
 //mongodb connection
